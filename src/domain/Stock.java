@@ -1,3 +1,5 @@
+package domain;
+
 public class Stock {
     public String isbn;
     public int qauntity;

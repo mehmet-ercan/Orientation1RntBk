@@ -1,3 +1,5 @@
+package domain;
+
 public class Payment {
     private Sale sale;
     private Rent rent;

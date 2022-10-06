@@ -1,14 +1,10 @@
+package domain;
+
+import db.DataBaseOperations;
+import enums.Choicess;
 
 public class Cashier {
     // Getters, Setters, Constructor
-    private enum Choices {
-        EXIT(0), ADDBOOK(1), ADDCUSTOMER(2), SELLBOOK(3), RENTBOOK(4), SALECANCEL(5), REFUNDBOOK(6), LOADING(7);
-        private int value;
-
-        Choices(int value) {
-            this.value = value;
-        }
-    }
     private String name;
     private String Surname;
     private String phoneNumber;
@@ -32,9 +28,9 @@ public class Cashier {
 
     public void work(int choiceIndex) {
 
-        Choices menuChoice = Choices.values()[choiceIndex];
+        Choicess menuChoice = Choicess.values()[choiceIndex];
 
-        if (menuChoice == Choices.ADDBOOK) {
+        if (menuChoice == Choicess.ADD_BOOK) {
             if (dataBaseOperations.addBook()) {
                 System.out.println("Kitap mağazaya ekleniyor:");
                 delayWithComma(3);

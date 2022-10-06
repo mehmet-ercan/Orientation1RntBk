@@ -1,3 +1,7 @@
+package db;
+import domain.Book;
+import domain.Stock;
+
 import java.util.Scanner;
 
 public class DataBaseOperations {

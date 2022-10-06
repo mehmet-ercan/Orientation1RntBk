@@ -1,3 +1,9 @@
+package db;
+
+import domain.Book;
+import domain.Customer;
+import domain.Stock;
+
 import java.util.ArrayList;
 import java.util.List;
 

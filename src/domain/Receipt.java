@@ -1,7 +1,7 @@
-import java.time.LocalDate;
+package domain;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 public class Receipt {
     private String receiptNumber;
@@ -25,7 +25,7 @@ public class Receipt {
         this.operationDate = operationDate;
     }
 
-    public void generateReceiptNumber(String type) { // S051022145509 => Sale 05.10.2022 14:55.09
+    public void generateReceiptNumber(String type) { // S051022145509 => domain.Sale 05.10.2022 14:55.09
         operationDate = LocalDateTime.now();
         receiptNumber = type + dateTimeFormatter.format(operationDate);
     }

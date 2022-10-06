@@ -1,34 +1,33 @@
+package domain;
+
+import db.DataBase;
+import db.DataBaseOperations;
+import enums.Choicess;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.Scanner;
 
 public class Main {
-    public enum Choices {
-        EXIT(0), ADDBOOK(1), ADDCUSTOMER(2), SELLBOOK(3), RENTBOOK(4), SALECANCEL(5), REFUNDBOOK(6), START(7);
-        private int value;
-
-        Choices(int value) {
-            this.value = value;
-        }
-    }
 
     public static void main(String[] args) {
         DataBase dataBase = new DataBase();
         DataBaseOperations dataBaseOperations = new DataBaseOperations(dataBase);
-        Store rentaBookStore = new Store();
-        Cashier cashier = new Cashier("Mehmet E.", "Akcan", "551 010 6464", "237V+6F Ümraniye, İstanbul");
+        Store rentABookStore = new Store();
+        Cashier cashier = new Cashier("Mehmet E.", "Akcan", "551 010 6464",
+                "237V+6F Ümraniye, İstanbul");
 
         cashier.setDataBaseOperations(dataBaseOperations);
-        rentaBookStore.workCashier(cashier);
+        rentABookStore.workCashier(cashier);
         printMenu(cashier);
     }
 
     public static void printMenu(Cashier cashier) {
         Scanner readScreen = new Scanner(System.in);
-        Choices choice = Choices.START;
+        Choicess choice = Choicess.START;
         System.out.println(" # RentaBook - KİTAP KİRALAMA UYGULAMASI # ");
 
-        while (choice != Choices.valueOf("EXIT")) {
+        while (choice != Choicess.valueOf("EXIT")) {
 
             //clearScreen();
             System.out.println("\n");
@@ -41,8 +40,8 @@ public class Main {
             System.out.println("0.) Çıkış\n");
             System.out.print(" Seçiminiz --> ");
 
-            choice = Choices.values()[readScreen.nextInt()];
-            if (choice != Choices.EXIT) {
+            choice = Choicess.values()[readScreen.nextInt()];
+            if (choice != Choicess.EXIT) {
                 cashier.work(choice.ordinal());
             }
         }

@@ -1,3 +1,5 @@
+package domain;
+
 public class Store {
 
     private String name;
