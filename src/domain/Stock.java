@@ -1,9 +1,9 @@
 package domain;
 
 public class Stock {
-    public String isbn;
-    public int qauntity;
-    public String shelfNumber;
+    private String isbn;
+    private int qauntity;
+    private String shelfNumber;
 
     public String getIsbn() {
         return isbn;

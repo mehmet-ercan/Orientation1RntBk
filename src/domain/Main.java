@@ -1,7 +1,7 @@
 package domain;
 
+import db.BookServices;
 import db.DataBase;
-import db.DataBaseOperations;
 import enums.Choicess;
 
 import java.awt.*;
@@ -12,17 +12,19 @@ public class Main {
 
     public static void main(String[] args) {
         DataBase dataBase = new DataBase();
-        DataBaseOperations dataBaseOperations = new DataBaseOperations(dataBase);
+        BookServices bookServices = new BookServices();
+
         Store rentABookStore = new Store();
         Cashier cashier = new Cashier("Mehmet E.", "Akcan", "551 010 6464",
                 "237V+6F Ümraniye, İstanbul");
-
-        cashier.setDataBaseOperations(dataBaseOperations);
         rentABookStore.workCashier(cashier);
-        printMenu(cashier);
+
+
+        bookServices.setDataBase(dataBase);
+        menu(bookServices);
     }
 
-    public static void printMenu(Cashier cashier) {
+    public static void menu(BookServices bookServices) {
         Scanner readScreen = new Scanner(System.in);
         Choicess choice = Choicess.START;
         System.out.println(" # RentaBook - KİTAP KİRALAMA UYGULAMASI # ");
@@ -41,12 +43,41 @@ public class Main {
             System.out.print(" Seçiminiz --> ");
 
             choice = Choicess.values()[readScreen.nextInt()];
-            if (choice != Choicess.EXIT) {
-                cashier.work(choice.ordinal());
+            if (choice == Choicess.ADD_BOOK) {
+                if (bookServices.addBook()) {
+                    System.out.println("Kitap mağazaya ekleniyor:");
+                    delayWithComma(3);
+                    System.out.println("Kitap mağazaya eklenmiştir.");
+                    delay(1);
+
+                } else {
+                    System.out.println("Kitap eklenirken bir hata meydana geldi. Tekrar Deneyiniz...");
+                    delay(3);
+                }
             }
         }
 
         System.out.println("İyi Günler Dileriz. ");
+    }
+
+    public static void delayWithComma(int commaQuantity) {
+        try {
+            for (int i = 0; i < commaQuantity; i++) {
+                Thread.sleep(1000);
+                System.out.println(".");
+            }
+        } catch (InterruptedException interruptedException) {
+            Thread.currentThread().interrupt();
+        }
+    }
+
+    public static void delay(int seconds) {
+        try {
+            seconds *= 1000;
+            Thread.sleep(seconds);
+        } catch (InterruptedException interruptedException) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     public static void clearScreen() {

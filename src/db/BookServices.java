@@ -1,13 +1,22 @@
 package db;
+
 import domain.Book;
 import domain.Stock;
 
 import java.util.Scanner;
 
-public class DataBaseOperations {
+public class BookServices {
 
-    private DataBase dataBase;
-    public DataBaseOperations(DataBase dataBase) {
+    DataBase dataBase;
+
+    public BookServices() {
+    }
+
+    public DataBase getDataBase() {
+        return dataBase;
+    }
+
+    public void setDataBase(DataBase dataBase) {
         this.dataBase = dataBase;
     }
 
@@ -46,6 +55,7 @@ public class DataBaseOperations {
             dataBase.getStock().add(newStock);
 
             return true;
+
         } catch (Exception exception) {
             System.out.println("Hata kodu:" + exception.getMessage() + "\n");
             return false;
@@ -53,5 +63,4 @@ public class DataBaseOperations {
 
 
     }
-
 }
