@@ -1,13 +1,13 @@
 public class Stock {
-    public int isbn;
+    public String isbn;
     public int qauntity;
     public String shelfNumber;
 
-    public int getIsbn() {
+    public String getIsbn() {
         return isbn;
     }
 
-    public void setIsbn(int isbn) {
+    public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
 
@@ -26,7 +26,6 @@ public class Stock {
     public void setShelfNumber(String shelfNumber) {
         this.shelfNumber = shelfNumber;
     }
-
 
 
 }

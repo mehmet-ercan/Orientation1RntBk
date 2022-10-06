@@ -1,13 +1,19 @@
-import java.util.Scanner;
 
 public class Cashier {
+    // Getters, Setters, Constructor
+    private enum Choices {
+        EXIT(0), ADDBOOK(1), ADDCUSTOMER(2), SELLBOOK(3), RENTBOOK(4), SALECANCEL(5), REFUNDBOOK(6), LOADING(7);
+        private int value;
+
+        Choices(int value) {
+            this.value = value;
+        }
+    }
     private String name;
     private String Surname;
     private String phoneNumber;
     private String adress;
-
-    private Book newBook;
-    private Stock stock;
+    private DataBaseOperations dataBaseOperations;
 
     public Cashier(String name, String surname, String phoneNumber, String adress) {
         this.name = name;
@@ -16,41 +22,50 @@ public class Cashier {
         this.adress = adress;
     }
 
-    public void go(int menuChoice) {
-        if (menuChoice == 1) {
-            if (addBook()) {
+    public DataBaseOperations getDataBaseOperations() {
+        return dataBaseOperations;
+    }
+
+    public void setDataBaseOperations(DataBaseOperations dataBaseOperations) {
+        this.dataBaseOperations = dataBaseOperations;
+    }
+
+    public void work(int choiceIndex) {
+
+        Choices menuChoice = Choices.values()[choiceIndex];
+
+        if (menuChoice == Choices.ADDBOOK) {
+            if (dataBaseOperations.addBook()) {
+                System.out.println("Kitap mağazaya ekleniyor:");
+                delayWithComma(3);
                 System.out.println("Kitap mağazaya eklenmiştir.");
+                delay(1);
+
             } else {
                 System.out.println("Kitap eklenirken bir hata meydana geldi. Tekrar Deneyiniz...");
+                delay(3);
             }
         }
     }
 
-    public boolean addBook() {
-        Scanner readScreen = new Scanner(System.in);
-        newBook = new Book();
+    public void delayWithComma(int commaQuantity) {
+        try {
+            for (int i = 0; i < commaQuantity; i++) {
+                Thread.sleep(1000);
+                System.out.println(".");
+            }
+        } catch (InterruptedException interruptedException) {
+            Thread.currentThread().interrupt();
+        }
+    }
 
-        System.out.println("Kitabın ISBN Numrasını Giriniz:");
-        newBook.setIsbn(readScreen.nextLine());
-
-        System.out.println("Kitabın İsmini Giriniz:");
-        newBook.setName(readScreen.nextLine());
-
-        System.out.println("Kitabın Yazarını Giriniz:");
-        newBook.setAuthor(readScreen.nextLine());
-
-        System.out.println("Kitabın Yayın Yılını Giriniz:");
-        newBook.setPublishYear(readScreen.nextLine());
-
-
-        System.out.println("Kitabın Sayfa Sayısını Giriniz:");
-        newBook.setPages(readScreen.nextInt());
-
-        System.out.println("Kitabın Ücretini Giriniz:");
-        newBook.setPrice(readScreen.nextFloat());
-
-
-        return true;
+    public void delay(int seconds) {
+        try {
+            seconds *= 1000;
+            Thread.sleep(seconds);
+        } catch (InterruptedException interruptedException) {
+            Thread.currentThread().interrupt();
+        }
     }
 
 }

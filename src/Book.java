@@ -1,12 +1,13 @@
 public class Book {
-    public String isbn;
-    String name;
-    String author;
-    String publishYear;
-    int pages;
-    float price;
 
-    //Getter & Setter
+    //Getters, Setters, Attributes
+    private String isbn;
+    private String name;
+    private String author;
+    private String publishYear;
+    private int pages;
+    private float price;
+
     public String getName() {
         return name;
     }

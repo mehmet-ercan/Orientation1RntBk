@@ -5,6 +5,7 @@ public class Store {
     private Cashier cashier;
 
 
+
     public void workCashier(Cashier cashier) {
         this.cashier = cashier;
     }
