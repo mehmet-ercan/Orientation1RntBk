@@ -29,5 +29,12 @@ public class Stock {
         this.shelfNumber = shelfNumber;
     }
 
+    public Stock() {
+    }
 
+    public Stock(String isbn, int qauntity, String shelfNumber) {
+        this.isbn = isbn;
+        this.qauntity = qauntity;
+        this.shelfNumber = shelfNumber;
+    }
 }

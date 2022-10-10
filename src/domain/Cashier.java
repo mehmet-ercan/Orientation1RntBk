@@ -1,8 +1,5 @@
 package domain;
 
-import db.CashierServices;
-import enums.Choicess;
-
 public class Cashier {
     // Getters, Setters, Constructor
     private String name;

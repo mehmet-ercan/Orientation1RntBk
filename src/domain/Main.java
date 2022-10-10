@@ -1,98 +1,65 @@
 package domain;
 
-import db.BookServices;
 import db.DataBase;
+import services.BookServices;
+import services.CustomerServices;
+import services.SaleServices;
+import services.StockServices;
 import enums.Choicess;
+import ui.*;
 
-import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.util.Scanner;
 
 public class Main {
-
     public static void main(String[] args) {
-        DataBase dataBase = new DataBase();
-        BookServices bookServices = new BookServices();
 
         Store rentABookStore = new Store();
-        Cashier cashier = new Cashier("Mehmet E.", "Akcan", "551 010 6464",
-                "237V+6F Ümraniye, İstanbul");
+        Cashier cashier = new Cashier("Mehmet E.", "Akcan", "551 010 6464", "237V+6F Ümraniye, İstanbul");
         rentABookStore.workCashier(cashier);
 
+        DataBase dataBase = new DataBase();
+        //dataBase.initiliazeData();
 
-        bookServices.setDataBase(dataBase);
-        menu(bookServices);
-    }
+        BookServices bookServices = new BookServices(dataBase);
+        StockServices stockServices = new StockServices(dataBase);
+        CustomerServices customerServices = new CustomerServices(dataBase);
+        SaleServices saleServices = new SaleServices(dataBase);
 
-    public static void menu(BookServices bookServices) {
-        Scanner readScreen = new Scanner(System.in);
-        Choicess choice = Choicess.START;
+        CustomerUI customerUI = new CustomerUI(customerServices);
+        BookUI bookUI = new BookUI(bookServices, stockServices);
+        StockUI stockUI = new StockUI(bookServices, stockServices);
+        SaleUI saleUI = new SaleUI();
+
+        UI userInterface = new UI();
+        userInterface.setBookUI(bookUI);
+        userInterface.setCustomerUI(customerUI);
+        userInterface.setStockUI(stockUI);
+        userInterface.setSaleUI(saleUI);
+
         System.out.println(" # RentaBook - KİTAP KİRALAMA UYGULAMASI # ");
+        start(userInterface);
+        System.out.println("İyi Günler Dileriz.");
+    }
 
-        while (choice != Choicess.valueOf("EXIT")) {
+    public static void start(UI userInterface) {
+        Choicess choice;
 
-            //clearScreen();
-            System.out.println("\n");
-            System.out.println("1.) Kitap Ekle ");
-            System.out.println("2.) Müşteri Ekle ");
-            System.out.println("3.) Kitap Satışı ");
-            System.out.println("4.) Kitap Kirala ");
-            System.out.println("5.) Satış İşlemi İptali ");
-            System.out.println("6.) Kitap Geri Al ");
-            System.out.println("0.) Çıkış\n");
-            System.out.print(" Seçiminiz --> ");
+        do {
+            choice = userInterface.writeMenuItems();
 
-            choice = Choicess.values()[readScreen.nextInt()];
             if (choice == Choicess.ADD_BOOK) {
-                if (bookServices.addBook()) {
-                    System.out.println("Kitap mağazaya ekleniyor:");
-                    delayWithComma(3);
-                    System.out.println("Kitap mağazaya eklenmiştir.");
-                    delay(1);
-
-                } else {
-                    System.out.println("Kitap eklenirken bir hata meydana geldi. Tekrar Deneyiniz...");
-                    delay(3);
-                }
+                userInterface.getBookUI().addBook();
+            } else if (choice == Choicess.ADD_CUSTOMER) {
+                userInterface.getCustomerUI().addCustomer();
+            } else if (choice == Choicess.SELL_BOOK) {
+                userInterface.getSaleUI().sellBook();
+            } else if (choice == Choicess.ADD_BOOK_STOCK) {
+                userInterface.getStockUI().increaseBookStock();
+            } else if (choice == Choicess.LIST_BOOK) {
+                userInterface.getBookUI().showBooksInStock();
             }
-        }
-
-        System.out.println("İyi Günler Dileriz. ");
+        } while (choice != Choicess.valueOf("EXIT"));
     }
 
-    public static void delayWithComma(int commaQuantity) {
-        try {
-            for (int i = 0; i < commaQuantity; i++) {
-                Thread.sleep(1000);
-                System.out.println(".");
-            }
-        } catch (InterruptedException interruptedException) {
-            Thread.currentThread().interrupt();
-        }
-    }
 
-    public static void delay(int seconds) {
-        try {
-            seconds *= 1000;
-            Thread.sleep(seconds);
-        } catch (InterruptedException interruptedException) {
-            Thread.currentThread().interrupt();
-        }
-    }
-
-    public static void clearScreen() {
-        try {
-            Robot robot = new Robot();
-            robot.keyPress(KeyEvent.VK_ALT);
-            robot.keyPress(KeyEvent.VK_NUM_LOCK);
-            robot.keyRelease(KeyEvent.VK_ALT);
-            robot.keyRelease(KeyEvent.VK_NUM_LOCK);
-            Thread.sleep(10);
-
-        } catch (AWTException ex) {
-            ex.printStackTrace(System.err);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-    }
 }
