@@ -1,46 +1,31 @@
 package domain;
 
-import domain.Book;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Sale {
-    private List<Book> bookItems = new ArrayList<>();
-    private int quantity;
+    private Map<Book, Integer> bookItemsWithQuantity = new HashMap<Book, Integer>();
     private float total;
+
+    public Map<Book, Integer> getBookItemsWithQuantity() {
+        return bookItemsWithQuantity;
+    }
+
+    public void setBookItemsWithQuantity(Map<Book, Integer> bookItemsWithPrice) {
+        this.bookItemsWithQuantity = bookItemsWithPrice;
+    }
 
     public float getTotal() {
         return total;
     }
 
-    public void setTotal(float total) {
-        this.total = total;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public List<Book> getBookItems() {
-        return bookItems;
-    }
-
-    public void setBookItems(List<Book> bookItems) {
-        this.bookItems = bookItems;
-    }
-
-    public float calculateTotal(){
+    public float calculateTotal(Map<Book, Float> map) {
         float subtotal = 0;
 
-        for (Book book : bookItems) {
-            subtotal = book.getPrice() * quantity;
+        for (Map.Entry<Book, Float> entry : map.entrySet()) {
+            subtotal = entry.getKey().getBookSpecification().getPrice() * entry.getValue();
             this.total += subtotal;
         }
+
         return total;
     }
 

@@ -8,17 +8,23 @@ import services.StockServices;
 import enums.Choicess;
 import ui.*;
 
-import java.util.Scanner;
-
 public class Main {
     public static void main(String[] args) {
-
         Store rentABookStore = new Store();
         Cashier cashier = new Cashier("Mehmet E.", "Akcan", "551 010 6464", "237V+6F Ümraniye, İstanbul");
         rentABookStore.workCashier(cashier);
 
+        UI userInterface = initializeUI();
+
+        System.out.println(" # RentaBook - KİTAP KİRALAMA UYGULAMASI # ");
+        startProgram(userInterface);
+        System.out.println("İyi Günler Dileriz.");
+    }
+
+    public static UI initializeUI() {
+
         DataBase dataBase = new DataBase();
-        //dataBase.initiliazeData();
+        dataBase.initiliazeData();
 
         BookServices bookServices = new BookServices(dataBase);
         StockServices stockServices = new StockServices(dataBase);
@@ -28,20 +34,13 @@ public class Main {
         CustomerUI customerUI = new CustomerUI(customerServices);
         BookUI bookUI = new BookUI(bookServices, stockServices);
         StockUI stockUI = new StockUI(bookServices, stockServices);
-        SaleUI saleUI = new SaleUI();
+        SaleUI saleUI = new SaleUI(saleServices);
 
-        UI userInterface = new UI();
-        userInterface.setBookUI(bookUI);
-        userInterface.setCustomerUI(customerUI);
-        userInterface.setStockUI(stockUI);
-        userInterface.setSaleUI(saleUI);
+        return new UI(bookUI, customerUI, stockUI, saleUI);
 
-        System.out.println(" # RentaBook - KİTAP KİRALAMA UYGULAMASI # ");
-        start(userInterface);
-        System.out.println("İyi Günler Dileriz.");
     }
 
-    public static void start(UI userInterface) {
+    public static void startProgram(UI userInterface) {
         Choicess choice;
 
         do {

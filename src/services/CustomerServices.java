@@ -14,22 +14,29 @@ public class CustomerServices {
         return dataBase;
     }
 
+    /**
+     *
+     * @param newCustomer
+     * @return
+     */
     public boolean addCustomer(Customer newCustomer) {
-        getDataBase().getCustomersList().add(newCustomer);
+        dataBase.getCustomersList().add(newCustomer);
         return true;
     }
 
     public int getNewCustomerId() {
         int lastCustomerId = 0;
 
-        if (getDataBase().getCustomersList().size() > 0) {
-            lastCustomerId = getDataBase().getCustomersList().get(getDataBase().getCustomersList().size() - 1).getId();
+        if (dataBase.getCustomersList().size() > 0) {
+            lastCustomerId = dataBase.getCustomersList().get(dataBase.getCustomersList().size() - 1).getId();
         }
 
         lastCustomerId = lastCustomerId + 1;
 
         return lastCustomerId;
     }
+
+
 
 
 }

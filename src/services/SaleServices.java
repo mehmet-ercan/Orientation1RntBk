@@ -8,9 +8,17 @@ public class SaleServices {
         this.dataBase = dataBase;
     }
 
-    DataBase dataBase;
+    private DataBase dataBase;
 
-    public void setDataBase(DataBase dataBase) {
-        this.dataBase = dataBase;
+    //TODO > Müşteri sorgulama işlemi, CustomerServices tarafından yapılması gerekiyor.
+    public boolean isValidCustomer(int customerId) {
+        return dataBase.getCustomersList().stream().anyMatch(c -> c.getId() == customerId);
     }
+
+    //TODO > Kitap sorgulama işlemi, BookServices tarafından yapılması gerekiyor.
+    public boolean isValidBook(String isbn) {
+        return dataBase.getBooksList().stream().anyMatch(b -> b.getIsbn().equals(isbn));
+    }
+
+
 }

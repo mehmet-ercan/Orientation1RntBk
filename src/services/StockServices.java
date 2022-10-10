@@ -17,6 +17,10 @@ public class StockServices {
         return dataBase;
     }
 
+    public void setDataBase(DataBase dataBase) {
+        this.dataBase = dataBase;
+    }
+
     //Kitap henüz eklendikten sonra hemen giriyor,
     //Elimizde hiç stock kaydı/nesnesi yok, yeni kayıt/nesne oluşturuyoruz
     //Yeni eklenen kitaba stok ekleme işlemi
@@ -34,7 +38,7 @@ public class StockServices {
 
                 System.out.println("Kitabın Stok Adedini Giriniz:");
                 newStock.setQauntity(readScreen.nextInt());
-                getDataBase().getStocksList().add(newStock);
+                dataBase.getStocksList().add(newStock);
 
                 return true;
             } else {
@@ -60,7 +64,7 @@ public class StockServices {
 
     public Stock getStock(String isbn) {
         Stock stock = null;
-        stock = getDataBase().getStocksList().stream().filter(s -> s.getIsbn().equals(isbn)).findFirst().orElse(null);
+        stock = dataBase.getStocksList().stream().filter(s -> s.getIsbn().equals(isbn)).findFirst().orElse(null);
         return stock;
 
     }

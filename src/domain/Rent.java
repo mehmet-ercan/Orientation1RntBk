@@ -58,7 +58,7 @@ public class Rent {
         float subtotal = 0;
 
         for (Book book : bookItems) {
-            subtotal = book.getPrice() * quantity;
+            subtotal = book.getBookSpecification().getPrice() * quantity;
             this.total += subtotal;
         }
         return total;

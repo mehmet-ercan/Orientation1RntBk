@@ -2,13 +2,16 @@ package ui;
 
 
 import enums.Choicess;
-import services.BookServices;
-import services.StockServices;
 import java.util.Scanner;
 
 public class UI {
 
-
+    public UI(BookUI bookUI, CustomerUI customerUI, StockUI stockUI, SaleUI saleUI) {
+        this.bookUI = bookUI;
+        this.customerUI = customerUI;
+        this.stockUI = stockUI;
+        this.saleUI = saleUI;
+    }
 
     BookUI bookUI;
     CustomerUI customerUI;
@@ -20,32 +23,16 @@ public class UI {
         return bookUI;
     }
 
-    public void setBookUI(BookUI bookUI) {
-        this.bookUI = bookUI;
-    }
-
     public CustomerUI getCustomerUI() {
         return customerUI;
-    }
-
-    public void setCustomerUI(CustomerUI customerUI) {
-        this.customerUI = customerUI;
     }
 
     public StockUI getStockUI() {
         return stockUI;
     }
 
-    public void setStockUI(StockUI stockUI) {
-        this.stockUI = stockUI;
-    }
-
     public SaleUI getSaleUI() {
         return saleUI;
-    }
-
-    public void setSaleUI(SaleUI saleUI) {
-        this.saleUI = saleUI;
     }
 
     public Choicess writeMenuItems() {

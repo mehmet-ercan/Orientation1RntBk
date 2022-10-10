@@ -1,10 +1,13 @@
 package ui;
 
 import domain.Book;
+import domain.BookSpecification;
 import domain.Stock;
 import services.BookServices;
 import services.StockServices;
 
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.Scanner;
 
 public class BookUI {
@@ -37,7 +40,11 @@ public class BookUI {
             newBook.setPages(readScreen.nextInt());
 
             System.out.println("Kitabın Ücretini Giriniz:");
-            newBook.setPrice(readScreen.nextFloat());
+            newBook.getBookSpecification().setPrice(readScreen.nextFloat());
+
+            newBook.getBookSpecification().setIsbn(newBook.getIsbn());
+            newBook.getBookSpecification().setFirstPriceDate(LocalDate.now());
+            newBook.getBookSpecification().setSecondPriceDate(LocalDate.of(9999, Month.DECEMBER, 31));
 
             if (bookServices.addBook(newBook)) {
                 if (stockServices.addStock(newBook.getIsbn())) {
@@ -78,7 +85,7 @@ public class BookUI {
         System.out.println("Yazarı: " + book.getAuthor());
         System.out.println("Sayfa Sayısı: " + book.getPages());
         System.out.println("Yayın Yılı: " + book.getPublishYear());
-        System.out.println("Fiyatı: " + book.getPrice());
+        System.out.println("Fiyatı: " + book.getBookSpecification().getPrice());
 
         if (stock != null) {
             System.out.println("Stoktaki Adedi: " + stock.getQauntity());
@@ -87,6 +94,5 @@ public class BookUI {
             System.out.println("Kitanın stok bilgileri bulunamadı. Tekrar Deneyiniz.");
         }
     }
-
 
 }
