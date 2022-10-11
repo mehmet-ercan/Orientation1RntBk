@@ -2,10 +2,19 @@ package domain;
 
 public class Customer {
 
-    public int id;
-    public String name;
-    public String surName;
-    public String phoneNumber;
+
+    private int id;
+    private String name;
+    private String surName;
+    private String phoneNumber;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;

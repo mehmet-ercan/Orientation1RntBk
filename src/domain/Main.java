@@ -1,67 +1,64 @@
 package domain;
 
 import db.DataBase;
-import db.DataBaseOperations;
+import services.BookServices;
+import services.CustomerServices;
+import services.SaleServices;
+import services.StockServices;
 import enums.Choicess;
-
-import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.util.Scanner;
+import ui.*;
 
 public class Main {
-
     public static void main(String[] args) {
-        DataBase dataBase = new DataBase();
-        DataBaseOperations dataBaseOperations = new DataBaseOperations(dataBase);
         Store rentABookStore = new Store();
-        Cashier cashier = new Cashier("Mehmet E.", "Akcan", "551 010 6464",
-                "237V+6F Ümraniye, İstanbul");
-
-        cashier.setDataBaseOperations(dataBaseOperations);
+        Cashier cashier = new Cashier("Mehmet E.", "Akcan", "551 010 6464", "237V+6F Ümraniye, İstanbul");
         rentABookStore.workCashier(cashier);
-        printMenu(cashier);
-    }
 
-    public static void printMenu(Cashier cashier) {
-        Scanner readScreen = new Scanner(System.in);
-        Choicess choice = Choicess.START;
+        UI userInterface = initializeUI();
+
         System.out.println(" # RentaBook - KİTAP KİRALAMA UYGULAMASI # ");
+        startProgram(userInterface);
+        System.out.println("İyi Günler Dileriz.");
+    }
 
-        while (choice != Choicess.valueOf("EXIT")) {
+    public static UI initializeUI() {
 
-            //clearScreen();
-            System.out.println("\n");
-            System.out.println("1.) Kitap Ekle ");
-            System.out.println("2.) Müşteri Ekle ");
-            System.out.println("3.) Kitap Satışı ");
-            System.out.println("4.) Kitap Kirala ");
-            System.out.println("5.) Satış İşlemi İptali ");
-            System.out.println("6.) Kitap Geri Al ");
-            System.out.println("0.) Çıkış\n");
-            System.out.print(" Seçiminiz --> ");
+        DataBase dataBase = new DataBase();
+        dataBase.initiliazeData();
 
-            choice = Choicess.values()[readScreen.nextInt()];
-            if (choice != Choicess.EXIT) {
-                cashier.work(choice.ordinal());
+        BookServices bookServices = new BookServices(dataBase);
+        StockServices stockServices = new StockServices(dataBase);
+        CustomerServices customerServices = new CustomerServices(dataBase);
+        SaleServices saleServices = new SaleServices(dataBase);
+
+        CustomerUI customerUI = new CustomerUI(customerServices);
+        BookUI bookUI = new BookUI(bookServices, stockServices);
+        StockUI stockUI = new StockUI(bookServices, stockServices);
+        SaleUI saleUI = new SaleUI(saleServices);
+
+        return new UI(bookUI, customerUI, stockUI, saleUI);
+
+    }
+
+    public static void startProgram(UI userInterface) {
+        Choicess choice;
+
+        do {
+            choice = userInterface.writeMenuItems();
+
+            if (choice == Choicess.ADD_BOOK) {
+                userInterface.getBookUI().addBook();
+            } else if (choice == Choicess.ADD_CUSTOMER) {
+                userInterface.getCustomerUI().addCustomer();
+            } else if (choice == Choicess.SELL_BOOK) {
+                userInterface.getSaleUI().sellBook();
+            } else if (choice == Choicess.ADD_BOOK_STOCK) {
+                userInterface.getStockUI().increaseBookStock();
+            } else if (choice == Choicess.LIST_BOOK) {
+                userInterface.getBookUI().showBooksInStock();
             }
-        }
-
-        System.out.println("İyi Günler Dileriz. ");
+        } while (choice != Choicess.valueOf("EXIT"));
     }
 
-    public static void clearScreen() {
-        try {
-            Robot robot = new Robot();
-            robot.keyPress(KeyEvent.VK_ALT);
-            robot.keyPress(KeyEvent.VK_NUM_LOCK);
-            robot.keyRelease(KeyEvent.VK_ALT);
-            robot.keyRelease(KeyEvent.VK_NUM_LOCK);
-            Thread.sleep(10);
 
-        } catch (AWTException ex) {
-            ex.printStackTrace(System.err);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-    }
 }

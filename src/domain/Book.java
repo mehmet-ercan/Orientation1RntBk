@@ -8,7 +8,19 @@ public class Book {
     private String author;
     private String publishYear;
     private int pages;
-    private float price;
+    private BookSpecification bookSpecification;
+
+    public Book(String isbn, String name, String author, String publishYear, int pages) {
+        this.isbn = isbn;
+        this.name = name;
+        this.author = author;
+        this.publishYear = publishYear;
+        this.pages = pages;
+    }
+
+    public Book() {
+        this.bookSpecification = new BookSpecification();
+    }
 
     public String getName() {
         return name;
@@ -50,26 +62,12 @@ public class Book {
         this.pages = pages;
     }
 
-    public float getPrice() {
-        return price;
+    public BookSpecification getBookSpecification() {
+        return bookSpecification;
     }
 
-    public void setPrice(float price) {
-        this.price = price;
-    }
-
-
-    public Book(String isbn, String name, String author, String publishYear, int pages, float price) {
-        this.isbn = isbn;
-        this.name = name;
-        this.author = author;
-        this.publishYear = publishYear;
-        this.pages = pages;
-        this.price = price;
-    }
-
-    public Book() {
-
+    public void setBookSpecification(BookSpecification bookSpecification) {
+        this.bookSpecification = bookSpecification;
     }
 
 
