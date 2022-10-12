@@ -44,6 +44,8 @@ public class Main {
     public static void startProgram(UI userInterface) {
         Choicess choice;
 
+
+
         do {
             choice = userInterface.writeMenuItems();
 

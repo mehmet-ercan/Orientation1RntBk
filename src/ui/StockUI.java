@@ -27,7 +27,7 @@ public class StockUI {
             System.out.println("Lütfen önce kitap ekleyiniz.");
         } else {
             System.out.println("Kaç adet stok girilecek:");
-            quantity = readScreen.nextInt();
+            quantity = Integer.parseInt(readScreen.nextLine());
             StockServices.getInstance().increaseStock(isbn, quantity);
 
             stock = StockServices.getInstance().getStock(book.getIsbn());

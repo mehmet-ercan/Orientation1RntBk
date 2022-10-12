@@ -56,7 +56,7 @@ public class UI {
         System.out.println("0.) Çıkış\n");
         System.out.print(" Seçiminiz --> ");
 
-        return Choicess.values()[readScreen.nextInt()];
+        return Choicess.values()[Integer.parseInt(readScreen.nextLine())];
     }
 
     public static void delayWithComma(int commaQuantity) {
@@ -72,7 +72,7 @@ public class UI {
 
     public static void delay(int seconds) {
         try {
-            seconds *= 1000;
+            seconds *= 1250;
             Thread.sleep(seconds);
         } catch (InterruptedException interruptedException) {
             Thread.currentThread().interrupt();

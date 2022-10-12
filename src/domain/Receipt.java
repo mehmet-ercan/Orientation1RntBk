@@ -6,7 +6,7 @@ public class Receipt {
     public void printSaleReceipt(Sale sale) {
         System.out.println("Satın alınan kitaplar ->");
         int i = 1;
-        for (Book book : sale.getBookItemsWithQuantity().keySet()) {
+        for (Book book : sale.getSaleListMap().keySet()) {
             System.out.println(i++ + ". " + book.getName() + " " + book.getBookSpecification().getPrice() + " TL");
         }
         System.out.println("Satın alımış kitapların toplam ücreti: " + sale.getTotal());

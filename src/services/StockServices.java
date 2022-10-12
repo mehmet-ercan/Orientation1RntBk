@@ -71,8 +71,8 @@ public class StockServices {
         Stock stock = null;
         stock = dataBase.getStocksList().stream().filter(s -> s.getIsbn().equals(isbn)).findFirst().orElse(null);
         return stock;
-
     }
+
 
 
 }

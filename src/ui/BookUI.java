@@ -31,10 +31,10 @@ public class BookUI {
             newBook.setPublishYear(readScreen.nextLine());
 
             System.out.println("Kitabın Sayfa Sayısını Giriniz:");
-            newBook.setPages(readScreen.nextInt());
+            newBook.setPages(Integer.parseInt(readScreen.nextLine()));
 
             System.out.println("Kitabın Ücretini Giriniz:");
-            newBook.getBookSpecification().setPrice(readScreen.nextFloat());
+            newBook.getBookSpecification().setPrice(Float.parseFloat(readScreen.nextLine()));
 
             newBook.getBookSpecification().setIsbn(newBook.getIsbn());
             newBook.getBookSpecification().setStartDate(LocalDate.now());

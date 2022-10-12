@@ -4,34 +4,27 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 public class Sale {
-    private Map<Book, Integer> bookItemsWithQuantity = new HashMap<Book, Integer>();
+    private Map<Book, Integer> saleListMap = new HashMap<Book, Integer>();
     private LocalDateTime saleDateTime;
+    private int customerId;
     private String saleNumber;
     private float total;
 
-    public Map<Book, Integer> getBookItemsWithQuantity() {
-        return bookItemsWithQuantity;
+    public Map<Book, Integer> getSaleListMap() {
+        return saleListMap;
     }
 
     public float getTotal() {
         return total;
     }
 
-    public float setTotal(Map<Book, Integer> map) {
-        float subtotal = 0;
-
-        for (Map.Entry<Book, Integer> entry : map.entrySet()) {
-            subtotal = entry.getKey().getBookSpecification().getPrice() * entry.getValue();
-            this.total += subtotal;
-        }
-
-        return total;
+    public void setTotal(float total) {
+        this.total = total;
     }
 
     public String getSaleNumber() {
         return saleNumber;
     }
-
 
     public void setSaleNumber(String saleNumber) {
         this.saleNumber = saleNumber;
@@ -43,5 +36,13 @@ public class Sale {
 
     public void setSaleDateTime(LocalDateTime saleDateTime) {
         this.saleDateTime = saleDateTime;
+    }
+
+    public int getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
     }
 }

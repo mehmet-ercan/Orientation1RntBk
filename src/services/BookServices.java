@@ -3,7 +3,7 @@ package services;
 import db.DataBase;
 import domain.Book;
 
-public class BookServices {
+public class BookServices{
     private static BookServices bookServices;
     private DataBase dataBase;
 

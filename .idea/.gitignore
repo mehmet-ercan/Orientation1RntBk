@@ -7,5 +7,4 @@
 /dataSources/
 /dataSources.local.xml
 # out files ignored, .class
-out/
 .class
