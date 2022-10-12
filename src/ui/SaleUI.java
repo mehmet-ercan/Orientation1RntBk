@@ -16,6 +16,11 @@ import java.util.Scanner;
 
 public class SaleUI {
 
+    BookService bookService = BookService.getInstance();
+    SaleService saleService = SaleService.getInstance();
+    CustomerService customerService = CustomerService.getInstance();
+    StockService stockService = StockService.getInstance();
+
     Scanner readScreen = new Scanner(System.in);
 
     public void sellBook() {
@@ -28,7 +33,7 @@ public class SaleUI {
             System.out.println("Müşteri Numarası: ");
             customerId = Integer.parseInt(readScreen.nextLine());
 
-            if (!CustomerService.getInstance().isValidCustomer(customerId)) {
+            if (!customerService.isValidCustomer(customerId)) {
                 System.out.println(customerId + " < numaralı müşteri bulunamamıştır. Lütfen önce müşteri ekleyiniz");
             } else {
 
@@ -45,13 +50,13 @@ public class SaleUI {
                         break;
                     }
 
-                    book = BookService.getInstance().getBook(isbn);
+                    book = bookService.getBook(isbn);
 
                     if (book != null) {
                         System.out.println(book.getName() + " kitabından kaç adet alınacak?:");
                         int quantity = Integer.parseInt(readScreen.nextLine());
 
-                        Stock stock = StockService.getInstance().getStock(book.getIsbn());
+                        Stock stock = stockService.getStock(book.getIsbn());
                         if (stock.getQauntity() < quantity) {
                             System.out.println("Dükkanda istenilen adette kitap mevcut değildir.\n" +
                                     "Sadece " + stock.getQauntity() + " tane kitap alabilirsiniz.");
@@ -68,11 +73,11 @@ public class SaleUI {
 
                 if (isAdded) {
                     sale.setCustomerId(customerId);
-                    sale.setTotal(SaleService.getInstance().calculateTotal(sale));
+                    sale.setTotal(saleService.calculateTotal(sale));
 
                     sale.setOperationDateTime(LocalDateTime.now());
                     //.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
-                    sale.setOperationNumber(SaleService.getInstance().generateSaleNumber(sale.getCustomerId()));
+                    sale.setOperationNumber(saleService.generateSaleNumber(sale.getCustomerId()));
 
                     showCart(sale);
                     System.out.println("Satın alınacak kitaplar yukarıdaki gibidir. " +
@@ -81,9 +86,9 @@ public class SaleUI {
                     String response = readScreen.nextLine();
 
                     if (response.equals("E") || response.equals("e")) {
-                        SaleService.getInstance().addSale(sale);
+                        saleService.addSale(sale);
                         for (Map.Entry<Book, Integer> saleMap : sale.getBookAndQuantityMap().entrySet()) {
-                            StockService.getInstance().increaseStock(saleMap.getKey().getIsbn(), saleMap.getValue() * -1);
+                            stockService.increaseStock(saleMap.getKey().getIsbn(), saleMap.getValue() * -1);
                         }
                         System.out.println("Satın alma işlemi gerçekleştirilmiştir.\n");
                         showReceipt(sale);
@@ -119,7 +124,7 @@ public class SaleUI {
         System.out.println("İşlem Özeti => \n");
         System.out.println("Tarih: " + sale.getOperationDateTime().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
         System.out.println("İşlem Numarası:" + sale.getOperationNumber());
-        Customer customer = CustomerService.getInstance().getCustomerInfo(sale.getCustomerId());
+        Customer customer = customerService.getCustomerInfo(sale.getCustomerId());
 
         System.out.println("Müşteri Adı:" + customer.getName() + " " + customer.getSurName());
         System.out.println("Telefon Numarası: " + customer.getPhoneNumber());

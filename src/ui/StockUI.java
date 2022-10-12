@@ -9,7 +9,9 @@ import java.util.Scanner;
 
 public class StockUI {
 
+    StockService stockService = StockService.getInstance();
     Scanner readScreen = new Scanner(System.in);
+
 
     public void increaseBookStock() {
         Book book = null;
@@ -28,9 +30,9 @@ public class StockUI {
         } else {
             System.out.println("Kaç adet stok girilecek:");
             quantity = Integer.parseInt(readScreen.nextLine());
-            StockService.getInstance().increaseStock(isbn, quantity);
+            stockService.increaseStock(isbn, quantity);
 
-            stock = StockService.getInstance().getStock(book.getIsbn());
+            stock = stockService.getStock(book.getIsbn());
 
             if (stock != null) {
                 System.out.println("Stoktaki Adedi: " + stock.getQauntity());

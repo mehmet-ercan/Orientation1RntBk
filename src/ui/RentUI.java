@@ -9,6 +9,12 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class RentUI {
+
+    BookService bookService = BookService.getInstance();
+    CustomerService customerService = CustomerService.getInstance();
+    StockService stockService = StockService.getInstance();
+    RentService rentService = RentService.getInstance();
+
     Scanner readScreen = new Scanner(System.in);
 
     public void rentBook() {
@@ -21,7 +27,7 @@ public class RentUI {
             System.out.println("Müşteri Numarası: ");
             customerId = Integer.parseInt(readScreen.nextLine());
 
-            if (!CustomerService.getInstance().isValidCustomer(customerId)) {
+            if (!customerService.isValidCustomer(customerId)) {
                 System.out.println(customerId + " < numaralı müşteri bulunamamıştır. Lütfen önce müşteri ekleyiniz");
             } else {
 
@@ -39,13 +45,13 @@ public class RentUI {
                         break;
                     }
 
-                    book = BookService.getInstance().getBook(isbn);
+                    book = bookService.getBook(isbn);
 
                     if (book != null) {
                         System.out.println(book.getName() + " kitabından kaç adet kiralanacak?:");
                         int quantity = Integer.parseInt(readScreen.nextLine());
 
-                        Stock stock = StockService.getInstance().getStock(book.getIsbn());
+                        Stock stock = stockService.getStock(book.getIsbn());
                         if (stock.getQauntity() < quantity) {
                             System.out.println("Dükkanda istenilen adette kitap mevcut değildir.\n" +
                                     "Sadece " + stock.getQauntity() + " tane kitap kiralayabilirsiniz.");
@@ -62,11 +68,11 @@ public class RentUI {
 
                 if (isAddedBook) {
                     rent.setCustomerId(customerId);
-                    rent.setTotal(RentService.getInstance().calculateTotal(rent));
+                    rent.setTotal(rentService.calculateTotal(rent));
                     rent.setOperationDateTime(LocalDateTime.now());
-                    rent.setOperationNumber(RentService.getInstance().generateRentNumber(rent.getCustomerId()));
+                    rent.setOperationNumber(rentService.generateRentNumber(rent.getCustomerId()));
                     rent.setRefundDate(LocalDateTime.now().plusDays(14));
-                    RentService.getInstance().calculateRefund(rent);
+                    rentService.calculateRefund(rent);
 
                     showCart(rent);
                     System.out.println("Kiralanacak kitaplar yukarıdaki gibidir. " +
@@ -75,9 +81,9 @@ public class RentUI {
                     String response = readScreen.nextLine();
 
                     if (response.equals("E") || response.equals("e")) {
-                        RentService.getInstance().addRent(rent);
+                        rentService.addRent(rent);
                         for (Map.Entry<Book, Integer> rentMap : rent.getBookAndQuantityMap().entrySet()) {
-                            StockService.getInstance().increaseStock(rentMap.getKey().getIsbn(), rentMap.getValue() * -1);
+                            stockService.increaseStock(rentMap.getKey().getIsbn(), rentMap.getValue() * -1);
                         }
 
                         System.out.println("Kiralama işlemi gerçekleştirilmiştir.\n");
@@ -110,10 +116,11 @@ public class RentUI {
     public void showReceipt(Rent rent) {
         System.out.println("İşlem Özeti => \n");
 
-        System.out.println("Tarih: " + rent.getOperationDateTime().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));;
+        System.out.println("Tarih: " + rent.getOperationDateTime().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
+        ;
         System.out.println("İşlem Numarası:" + rent.getOperationNumber());
 
-        Customer customer = CustomerService.getInstance().getCustomerInfo(rent.getCustomerId());
+        Customer customer = customerService.getCustomerInfo(rent.getCustomerId());
 
         System.out.println("Müşteri Adı:" + customer.getName() + " " + customer.getSurName());
         System.out.println("Telefon Numarası: " + customer.getPhoneNumber());

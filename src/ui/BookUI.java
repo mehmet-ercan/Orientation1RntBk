@@ -11,7 +11,8 @@ import java.util.Scanner;
 
 public class BookUI {
     Scanner readScreen = new Scanner(System.in);
-
+    BookService bookService = BookService.getInstance();
+    StockService stockService = StockService.getInstance();
 
     public void addBook() {
         try {
@@ -40,8 +41,8 @@ public class BookUI {
             newBook.getBookSpecification().setStartDate(LocalDate.now());
             newBook.getBookSpecification().setEndDate(LocalDate.of(9999, Month.DECEMBER, 31));
 
-            if (BookService.getInstance().addBook(newBook)) {
-                if (StockService.getInstance().addStock(newBook.getIsbn())) {
+            if (bookService.addBook(newBook)) {
+                if (stockService.addStock(newBook.getIsbn())) {
                     System.out.println("Kitap stok bilgisiyle beraber mağazaya eklenmiştir: ");
                     UI.delay(1);
                 } else {
@@ -62,7 +63,7 @@ public class BookUI {
     public void showBooksInStock() {
         int bookNumber = 1;
 
-        for (Book book : BookService.getInstance().getDataBase().getBooksList()) {
+        for (Book book : bookService.getDataBase().getBooksList()) {
             System.out.print(bookNumber + ". ");
             printBookInformation(book);
             bookNumber++;
@@ -70,7 +71,7 @@ public class BookUI {
     }
 
     public void printBookInformation(Book book) {
-        Stock stock = StockService.getInstance().getStock(book.getIsbn());
+        Stock stock = stockService.getStock(book.getIsbn());
 
         System.out.println("ISBN Numarası: " + book.getIsbn());
         System.out.println("Adı: " + book.getName());
