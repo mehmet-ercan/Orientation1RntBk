@@ -9,7 +9,6 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class RentUI {
-
     BookService bookService = BookService.getInstance();
     CustomerService customerService = CustomerService.getInstance();
     StockService stockService = StockService.getInstance();
