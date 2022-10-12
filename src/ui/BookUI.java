@@ -1,7 +1,6 @@
 package ui;
 
 import domain.Book;
-import domain.BookSpecification;
 import domain.Stock;
 import services.BookServices;
 import services.StockServices;
@@ -11,17 +10,12 @@ import java.time.Month;
 import java.util.Scanner;
 
 public class BookUI {
-    BookServices bookServices;
-    StockServices stockServices;
     Scanner readScreen = new Scanner(System.in);
 
-    public BookUI(BookServices bookServices, StockServices stockServices) {
-        this.bookServices = bookServices;
-        this.stockServices = stockServices;
-    }
 
     public void addBook() {
         try {
+
             Book newBook = new Book();
 
             System.out.println("Kitabın ISBN Numrasını Giriniz:");
@@ -43,11 +37,11 @@ public class BookUI {
             newBook.getBookSpecification().setPrice(readScreen.nextFloat());
 
             newBook.getBookSpecification().setIsbn(newBook.getIsbn());
-            newBook.getBookSpecification().setFirstPriceDate(LocalDate.now());
-            newBook.getBookSpecification().setSecondPriceDate(LocalDate.of(9999, Month.DECEMBER, 31));
+            newBook.getBookSpecification().setStartDate(LocalDate.now());
+            newBook.getBookSpecification().setEndDate(LocalDate.of(9999, Month.DECEMBER, 31));
 
-            if (bookServices.addBook(newBook)) {
-                if (stockServices.addStock(newBook.getIsbn())) {
+            if (BookServices.getInstance().addBook(newBook)) {
+                if (StockServices.getInstance().addStock(newBook.getIsbn())) {
                     System.out.println("Kitap stok bilgisiyle beraber mağazaya ekleniyor: ");
                     UI.delayWithComma(3);
                     System.out.println("Kitap mağazaya eklenmiştir.");
@@ -70,7 +64,7 @@ public class BookUI {
     public void showBooksInStock() {
         int bookNumber = 1;
 
-        for (Book book : bookServices.getDataBase().getBooksList()) {
+        for (Book book : BookServices.getInstance().getDataBase().getBooksList()) {
             System.out.print(bookNumber + ". ");
             printBookInformation(book);
             bookNumber++;
@@ -78,7 +72,7 @@ public class BookUI {
     }
 
     public void printBookInformation(Book book) {
-        Stock stock = stockServices.getStock(book.getIsbn());
+        Stock stock = StockServices.getInstance().getStock(book.getIsbn());
 
         System.out.println("ISBN Numarası: " + book.getIsbn());
         System.out.println("Adı: " + book.getName());

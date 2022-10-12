@@ -1,23 +1,22 @@
 package ui;
 
-
 import enums.Choicess;
 import java.util.Scanner;
 
 public class UI {
-
-    public UI(BookUI bookUI, CustomerUI customerUI, StockUI stockUI, SaleUI saleUI) {
-        this.bookUI = bookUI;
-        this.customerUI = customerUI;
-        this.stockUI = stockUI;
-        this.saleUI = saleUI;
-    }
 
     BookUI bookUI;
     CustomerUI customerUI;
     StockUI stockUI;
     SaleUI saleUI;
     Scanner readScreen = new Scanner(System.in);
+
+    public UI() {
+        this.bookUI = new BookUI();
+        this.customerUI = new CustomerUI();
+        this.stockUI = new StockUI();
+        this.saleUI = new SaleUI();
+    }
 
     public BookUI getBookUI() {
         return bookUI;

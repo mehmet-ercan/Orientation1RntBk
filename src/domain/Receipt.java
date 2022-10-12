@@ -1,40 +1,13 @@
 package domain;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 public class Receipt {
     private String receiptNumber;
-    private LocalDateTime operationDate;
-    private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyMMddHHmmss");
-
-
-    public String getReceiptNumber() {
-        return receiptNumber;
-    }
-
-    public void setReceiptNumber(String receiptNumber) {
-        this.receiptNumber = receiptNumber;
-    }
-
-    public LocalDateTime getOperationDate() {
-        return operationDate;
-    }
-
-    public void setOperationDate(LocalDateTime operationDate) {
-        this.operationDate = operationDate;
-    }
-
-    public void generateReceiptNumber(String type) { // S051022145509 => domain.Sale 05.10.2022 14:55.09
-        operationDate = LocalDateTime.now();
-        receiptNumber = type + dateTimeFormatter.format(operationDate);
-    }
 
     public void printSaleReceipt(Sale sale) {
-        System.out.println("Satın alınan kitaplar");
+        System.out.println("Satın alınan kitaplar ->");
         int i = 1;
         for (Book book : sale.getBookItemsWithQuantity().keySet()) {
-            System.out.println(i++ + book.getName() + " " + book.getBookSpecification().getPrice() + "TL");
+            System.out.println(i++ + ". " + book.getName() + " " + book.getBookSpecification().getPrice() + " TL");
         }
         System.out.println("Satın alımış kitapların toplam ücreti: " + sale.getTotal());
     }

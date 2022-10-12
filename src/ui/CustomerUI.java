@@ -7,19 +7,14 @@ import java.util.Scanner;
 
 public class CustomerUI {
 
-    CustomerServices customerServices;
     Scanner readScreen = new Scanner(System.in);
-
-    public CustomerUI(CustomerServices customerServices) {
-        this.customerServices = customerServices;
-    }
 
     public void addCustomer() {
         try {
             Customer newCustomer = new Customer();
             readScreen = new Scanner(System.in);
 
-            int customerId = customerServices.getNewCustomerId();
+            int customerId = CustomerServices.getInstance().getNewCustomerId();
             newCustomer.setId(customerId);
 
             System.out.println("Müşterinin Adını Giriniz:");
@@ -29,9 +24,9 @@ public class CustomerUI {
             newCustomer.setSurName(readScreen.nextLine());
 
             System.out.println("Müşterinin Telefon Numarasını Giriniz:");
-            newCustomer.setSurName(readScreen.nextLine());
+            newCustomer.setPhoneNumber(readScreen.nextLine());
 
-            if (customerServices.addCustomer(newCustomer)) {
+            if (CustomerServices.getInstance().addCustomer(newCustomer)) {
                 System.out.println("Müşteri kayıt ediliyor.");
                 UI.delayWithComma(3);
                 System.out.println("Müşteri kayıt edilmiştir.");
@@ -50,6 +45,15 @@ public class CustomerUI {
 
     }
 
+    public void showCustomerInfo(int id) {
+        Customer customer = CustomerServices.getInstance().getCustomerInfo(id);
+        if (customer != null) {
+            System.out.println("Müşteri id'si: " + customer.getId());
+            System.out.println("Müşteri Adı: " + customer.getName());
+            System.out.println("Müşteri Soyadı: " + customer.getSurName());
+            System.out.println("Müşteri telefon Numarası: " + customer.getPhoneNumber());
+        }
+    }
 
 
 }

@@ -1,23 +1,25 @@
 package domain;
 
+import services.CustomerServices;
+
 import java.time.LocalDate;
 
 public class BookSpecification {
 
     private String isbn;
     private float price;
-    private LocalDate firstPriceDate;
-    private LocalDate secondPriceDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
 
     public String getIsbn() {
         return isbn;
     }
 
-    public BookSpecification(String isbn, float price, LocalDate firstPriceDate, LocalDate secondPriceDate) {
+    public BookSpecification(String isbn, float price, LocalDate startDate, LocalDate endDate) {
         this.isbn = isbn;
         this.price = price;
-        this.firstPriceDate = firstPriceDate;
-        this.secondPriceDate = secondPriceDate;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     public BookSpecification() {
@@ -35,19 +37,19 @@ public class BookSpecification {
         this.price = price;
     }
 
-    public LocalDate getFirstPriceDate() {
-        return firstPriceDate;
+    public LocalDate getStartDate() {
+        return startDate;
     }
 
-    public void setFirstPriceDate(LocalDate firstPriceDate) {
-        this.firstPriceDate = firstPriceDate;
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
     }
 
-    public LocalDate getSecondPriceDate() {
-        return secondPriceDate;
+    public LocalDate getEndDate() {
+        return endDate;
     }
 
-    public void setSecondPriceDate(LocalDate secondPriceDate) {
-        this.secondPriceDate = secondPriceDate;
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
     }
 }

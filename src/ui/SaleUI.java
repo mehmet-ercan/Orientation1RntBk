@@ -1,18 +1,17 @@
 package ui;
 
+import domain.Book;
 import domain.Sale;
+import services.BookServices;
+import services.CustomerServices;
 import services.SaleServices;
 
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class SaleUI {
 
-    SaleServices saleServices;
     Scanner readScreen = new Scanner(System.in);
-
-    public SaleUI(SaleServices saleServices) {
-        this.saleServices = saleServices;
-    }
 
     public void sellBook() {
 
@@ -23,31 +22,49 @@ public class SaleUI {
             System.out.println("Kitap satın alacak olan müşteri numarasını giriniz:");
             System.out.println("Müşteri kayıtlı değilse önce müşteri kaydını yapınız.");
             System.out.println("Müşteri Numarası: ");
-            customerId = readScreen.nextInt();
+            customerId = Integer.parseInt(readScreen.nextLine());
 
-            if (!saleServices.isValidCustomer(customerId)) {
+            if (!CustomerServices.getInstance().isValidCustomer(customerId)) {
                 System.out.println(customerId + " < numaralı müşteri bulunamamıştır. Lütfen önce müşteri ekleyiniz");
             } else {
 
                 String isbn = "";
+                Book book;
+
                 do {
+                    System.out.println("Çıkmak için 0 yazınız:");
                     System.out.println("Satın alınan kitabın isbn numarasını giriniz:");
+
                     isbn = readScreen.nextLine();
 
-                    if (saleServices.isValidBook(isbn)) {
-                        //sale.getBookItemsWithQuantity().put(new Book(), 1);
+                    if (isbn.equals("0")) {
+                        break;
                     }
 
-                } while (isbn.equals("0"));
+                    book = BookServices.getInstance().getBook(isbn);
 
+                    if (book != null) {
+                        System.out.println(book.getName() + " kitabından kaç adet alınacak?:");
+                        int quantity = readScreen.nextInt();
+                        sale.getBookItemsWithQuantity().put(book, quantity);
+                        System.out.println(book.getName() + " kitabı," + quantity + " kadar eklenmiştir.");
+                    } else {
+                        System.out.println(isbn + " numaralı kitap bulunamamıştır. Tekrar deneyiniz\n\n");
+                    }
+                } while (!isbn.equals("0"));
+
+                sale.setTotal(sale.getBookItemsWithQuantity());
+                sale.setSaleDateTime(LocalDateTime.now());
+                sale.setSaleNumber(SaleServices.getInstance().generateReceiptNumber("S"));
+                SaleServices.getInstance().addSale(sale);
 
             }
-
-
         } catch (Exception e) {
             System.out.println("Hatalı bir giriş yapılmıştır, > " + e.getMessage());
             //throw new RuntimeException(e);
         }
 
     }
+
+
 }

@@ -7,11 +7,18 @@ import java.util.Scanner;
 
 public class StockServices {
 
-    public StockServices(DataBase dataBase) {
-        this.dataBase = dataBase;
+    private DataBase dataBase;
+    private static StockServices stockServices;
+
+    private StockServices() {
     }
 
-    private DataBase dataBase;
+    public static StockServices getInstance() {
+        if (stockServices == null) {
+            stockServices = new StockServices();
+        }
+        return stockServices;
+    }
 
     public DataBase getDataBase() {
         return dataBase;
@@ -41,10 +48,8 @@ public class StockServices {
                 dataBase.getStocksList().add(newStock);
 
                 return true;
-            } else {
-
-                return false;
             }
+            return false;
         } catch (Exception exception) {
             throw new RuntimeException(exception);
         }
@@ -68,9 +73,6 @@ public class StockServices {
         return stock;
 
     }
-
-
-
 
 
 }
