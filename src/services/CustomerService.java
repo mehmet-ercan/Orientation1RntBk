@@ -3,20 +3,20 @@ package services;
 import db.DataBase;
 import domain.Customer;
 
-public class CustomerServices {
+public class CustomerService {
     private DataBase dataBase;
-    private static CustomerServices customerServices;
+    private static CustomerService customerServices;
 
     public void setDataBase(DataBase dataBase) {
         this.dataBase = dataBase;
     }
 
-    public CustomerServices() {
+    public CustomerService() {
     }
 
-    public static CustomerServices getInstance() {
+    public static CustomerService getInstance() {
         if (customerServices == null) {
-            customerServices = new CustomerServices();
+            customerServices = new CustomerService();
         }
         return customerServices;
     }

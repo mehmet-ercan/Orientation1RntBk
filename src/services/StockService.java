@@ -5,19 +5,19 @@ import domain.Stock;
 
 import java.util.Scanner;
 
-public class StockServices {
+public class StockService {
 
     private DataBase dataBase;
-    private static StockServices stockServices;
+    private static StockService stockService;
 
-    private StockServices() {
+    private StockService() {
     }
 
-    public static StockServices getInstance() {
-        if (stockServices == null) {
-            stockServices = new StockServices();
+    public static StockService getInstance() {
+        if (stockService == null) {
+            stockService = new StockService();
         }
-        return stockServices;
+        return stockService;
     }
 
     public DataBase getDataBase() {

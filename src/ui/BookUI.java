@@ -2,8 +2,8 @@ package ui;
 
 import domain.Book;
 import domain.Stock;
-import services.BookServices;
-import services.StockServices;
+import services.BookService;
+import services.StockService;
 
 import java.time.LocalDate;
 import java.time.Month;
@@ -40,11 +40,9 @@ public class BookUI {
             newBook.getBookSpecification().setStartDate(LocalDate.now());
             newBook.getBookSpecification().setEndDate(LocalDate.of(9999, Month.DECEMBER, 31));
 
-            if (BookServices.getInstance().addBook(newBook)) {
-                if (StockServices.getInstance().addStock(newBook.getIsbn())) {
-                    System.out.println("Kitap stok bilgisiyle beraber mağazaya ekleniyor: ");
-                    UI.delayWithComma(3);
-                    System.out.println("Kitap mağazaya eklenmiştir.");
+            if (BookService.getInstance().addBook(newBook)) {
+                if (StockService.getInstance().addStock(newBook.getIsbn())) {
+                    System.out.println("Kitap stok bilgisiyle beraber mağazaya eklenmiştir: ");
                     UI.delay(1);
                 } else {
                     throw new Exception("Stok bilgisi eklenemedi.");
@@ -64,7 +62,7 @@ public class BookUI {
     public void showBooksInStock() {
         int bookNumber = 1;
 
-        for (Book book : BookServices.getInstance().getDataBase().getBooksList()) {
+        for (Book book : BookService.getInstance().getDataBase().getBooksList()) {
             System.out.print(bookNumber + ". ");
             printBookInformation(book);
             bookNumber++;
@@ -72,7 +70,7 @@ public class BookUI {
     }
 
     public void printBookInformation(Book book) {
-        Stock stock = StockServices.getInstance().getStock(book.getIsbn());
+        Stock stock = StockService.getInstance().getStock(book.getIsbn());
 
         System.out.println("ISBN Numarası: " + book.getIsbn());
         System.out.println("Adı: " + book.getName());

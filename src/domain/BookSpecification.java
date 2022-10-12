@@ -1,7 +1,5 @@
 package domain;
 
-import services.CustomerServices;
-
 import java.time.LocalDate;
 
 public class BookSpecification {

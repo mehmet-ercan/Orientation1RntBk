@@ -4,14 +4,14 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 public class Sale {
-    private Map<Book, Integer> saleListMap = new HashMap<Book, Integer>();
-    private LocalDateTime saleDateTime;
-    private int customerId;
-    private String saleNumber;
-    private float total;
+    Map<Book, Integer> bookAndQuantityMap = new HashMap<Book, Integer>();
+    LocalDateTime operationDateTime;
+    int customerId;
+    String operationNumber;
+    float total;
 
-    public Map<Book, Integer> getSaleListMap() {
-        return saleListMap;
+    public Map<Book, Integer> getBookAndQuantityMap() {
+        return bookAndQuantityMap;
     }
 
     public float getTotal() {
@@ -22,20 +22,20 @@ public class Sale {
         this.total = total;
     }
 
-    public String getSaleNumber() {
-        return saleNumber;
+    public String getOperationNumber() {
+        return operationNumber;
     }
 
-    public void setSaleNumber(String saleNumber) {
-        this.saleNumber = saleNumber;
+    public void setOperationNumber(String operationNumber) {
+        this.operationNumber = operationNumber;
     }
 
-    public LocalDateTime getSaleDateTime() {
-        return saleDateTime;
+    public LocalDateTime getOperationDateTime() {
+        return operationDateTime;
     }
 
-    public void setSaleDateTime(LocalDateTime saleDateTime) {
-        this.saleDateTime = saleDateTime;
+    public void setOperationDateTime(LocalDateTime operationDateTime) {
+        this.operationDateTime = operationDateTime;
     }
 
     public int getCustomerId() {

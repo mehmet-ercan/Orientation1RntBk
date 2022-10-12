@@ -2,19 +2,20 @@ package services;
 
 import db.DataBase;
 import domain.Book;
+import domain.Sale;
 
-public class BookServices{
-    private static BookServices bookServices;
-    private DataBase dataBase;
+public class BookService {
+    private static BookService bookService;
+    private  DataBase dataBase;
 
-    private BookServices() {
+    private BookService() {
     }
 
-    public static BookServices getInstance() {
-        if (bookServices == null) {
-            bookServices = new BookServices();
+    public static BookService getInstance() {
+        if (bookService == null) {
+            bookService = new BookService();
         }
-        return bookServices;
+        return bookService;
     }
 
     public void setDataBase(DataBase dataBase) {
@@ -26,7 +27,7 @@ public class BookServices{
     }
 
     public Book getBook(String isbn) {
-
+        Sale sale = new Sale();
         Book singleBook = null;
         singleBook = dataBase.getBooksList().stream().filter(b -> b.getIsbn().equals(isbn)).findFirst().orElse(null);
         return singleBook;

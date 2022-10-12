@@ -59,17 +59,6 @@ public class UI {
         return Choicess.values()[Integer.parseInt(readScreen.nextLine())];
     }
 
-    public static void delayWithComma(int commaQuantity) {
-        try {
-            for (int i = 0; i < commaQuantity; i++) {
-                Thread.sleep(1000);
-                System.out.println(".");
-            }
-        } catch (InterruptedException interruptedException) {
-            Thread.currentThread().interrupt();
-        }
-    }
-
     public static void delay(int seconds) {
         try {
             seconds *= 1250;

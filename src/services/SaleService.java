@@ -5,27 +5,26 @@ import domain.Book;
 import domain.Sale;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
-public class SaleServices {
-    private static SaleServices saleServices;
+public class SaleService {
+    private static SaleService saleService;
     private DataBase dataBase;
 
-    private SaleServices() {
+    private SaleService() {
     }
 
-    public static SaleServices getInstance() {
-        if (saleServices == null) {
-            saleServices = new SaleServices();
+    public static SaleService getInstance() {
+        if (saleService == null) {
+            saleService = new SaleService();
         }
-        return saleServices;
+        return saleService;
     }
 
     public void setDataBase(DataBase dataBase) {
         this.dataBase = dataBase;
     }
-
-
 
     public void addSale(Sale sale) {
         dataBase.getSalesList().add(sale);
@@ -33,7 +32,7 @@ public class SaleServices {
 
     public float calculateTotal(Sale sale) {
 
-        Map<Book, Integer> map = sale.getSaleListMap();
+        Map<Book, Integer> map = sale.getBookAndQuantityMap();
 
         float subtotal = 0;
 
@@ -44,8 +43,8 @@ public class SaleServices {
         return subtotal;
     }
 
-    public String generateReceiptNumber(String type) { // S051022145509 => domain.Sale 05.10.2022 14:55.09
-        String receiptNumber = "S" + LocalDateTime.now();
+    public String generateSaleNumber(int customerId) { // S051022145509 => domain.Sale 05.10.2022 14:55.09
+        String receiptNumber = "S" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("ddMMyyHHmmss")) + customerId;
         return receiptNumber;
     }
 
