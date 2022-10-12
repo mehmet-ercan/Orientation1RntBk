@@ -24,7 +24,7 @@ public class Main {
 
     public static UI initializeUI() {
 
-        DataBase dataBase=new DataBase();
+        DataBase dataBase = new DataBase();
 
         BookServices bookServices = BookServices.getInstance();
         bookServices.setDataBase(dataBase);
@@ -55,6 +55,8 @@ public class Main {
                 userInterface.getSaleUI().sellBook();
             } else if (choice == Choicess.ADD_BOOK_STOCK) {
                 userInterface.getStockUI().increaseBookStock();
+            } else if (choice == Choicess.RENT_BOOK) {
+                userInterface.getRentUI().addRent();
             } else if (choice == Choicess.LIST_BOOK) {
                 userInterface.getBookUI().showBooksInStock();
             }

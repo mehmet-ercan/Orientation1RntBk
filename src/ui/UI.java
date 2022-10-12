@@ -1,6 +1,7 @@
 package ui;
 
 import enums.Choicess;
+
 import java.util.Scanner;
 
 public class UI {
@@ -9,9 +10,11 @@ public class UI {
     CustomerUI customerUI;
     StockUI stockUI;
     SaleUI saleUI;
+    RentUI rentUI;
     Scanner readScreen = new Scanner(System.in);
 
     public UI() {
+        this.rentUI = new RentUI();
         this.bookUI = new BookUI();
         this.customerUI = new CustomerUI();
         this.stockUI = new StockUI();
@@ -32,6 +35,10 @@ public class UI {
 
     public SaleUI getSaleUI() {
         return saleUI;
+    }
+
+    public RentUI getRentUI() {
+        return rentUI;
     }
 
     public Choicess writeMenuItems() {
