@@ -2,17 +2,24 @@ package services;
 
 import db.DataBase;
 import domain.Book;
-import domain.BookSpecification;
-
-import java.util.Optional;
 
 public class BookServices {
+    private static BookServices bookServices;
+    private DataBase dataBase;
 
-    public BookServices(DataBase dataBase) {
-        this.dataBase = dataBase;
+    private BookServices() {
     }
 
-    private DataBase dataBase;
+    public static BookServices getInstance() {
+        if (bookServices == null) {
+            bookServices = new BookServices();
+        }
+        return bookServices;
+    }
+
+    public void setDataBase(DataBase dataBase) {
+        this.dataBase = dataBase;
+    }
 
     public DataBase getDataBase() {
         return dataBase;
@@ -36,4 +43,9 @@ public class BookServices {
             return false;
         }
     }
+
+    public boolean isValidBook(String isbn) {
+        return dataBase.getBooksList().stream().anyMatch(b -> b.getIsbn().equals(isbn));
+    }
+
 }

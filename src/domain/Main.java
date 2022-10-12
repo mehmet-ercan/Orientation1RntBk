@@ -9,6 +9,7 @@ import enums.Choicess;
 import ui.*;
 
 public class Main {
+
     public static void main(String[] args) {
         Store rentABookStore = new Store();
         Cashier cashier = new Cashier("Mehmet E.", "Akcan", "551 010 6464", "237V+6F Ümraniye, İstanbul");
@@ -23,21 +24,21 @@ public class Main {
 
     public static UI initializeUI() {
 
-        DataBase dataBase = new DataBase();
-        dataBase.initiliazeData();
+        DataBase dataBase=new DataBase();
 
-        BookServices bookServices = new BookServices(dataBase);
-        StockServices stockServices = new StockServices(dataBase);
-        CustomerServices customerServices = new CustomerServices(dataBase);
-        SaleServices saleServices = new SaleServices(dataBase);
+        BookServices bookServices = BookServices.getInstance();
+        bookServices.setDataBase(dataBase);
 
-        CustomerUI customerUI = new CustomerUI(customerServices);
-        BookUI bookUI = new BookUI(bookServices, stockServices);
-        StockUI stockUI = new StockUI(bookServices, stockServices);
-        SaleUI saleUI = new SaleUI(saleServices);
+        StockServices stockServices = StockServices.getInstance();
+        stockServices.setDataBase(dataBase);
 
-        return new UI(bookUI, customerUI, stockUI, saleUI);
+        CustomerServices customerServices = CustomerServices.getInstance();
+        customerServices.setDataBase(dataBase);
 
+        SaleServices saleServices = SaleServices.getInstance();
+        saleServices.setDataBase(dataBase);
+
+        return new UI();
     }
 
     public static void startProgram(UI userInterface) {
