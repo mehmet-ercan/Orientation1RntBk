@@ -1,4 +1,4 @@
-package services;
+package service;
 
 import db.DataBase;
 import domain.Book;
@@ -10,6 +10,7 @@ import java.util.Map;
 
 public class SaleService {
     private static SaleService saleService;
+
     private DataBase dataBase;
 
     private SaleService() {
@@ -46,6 +47,14 @@ public class SaleService {
     public String generateSaleNumber(int customerId) { // S051022145509 => domain.Sale 05.10.2022 14:55.09
         String receiptNumber = "S" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("ddMMyyHHmmss")) + customerId;
         return receiptNumber;
+    }
+
+    public Sale getSale(String saleNumber) {
+        return dataBase.getSalesList().stream().filter(s -> s.getOperationNumber().equals(saleNumber)).findFirst().orElse(null);
+    }
+
+    public void removeSale(Sale sale) {
+        dataBase.getSalesList().remove(sale);
     }
 
 }

@@ -1,7 +1,7 @@
 package ui;
 
 import domain.*;
-import services.*;
+import service.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

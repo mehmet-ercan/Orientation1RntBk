@@ -1,7 +1,7 @@
-package domain;
-
 import db.DataBase;
-import services.*;
+import domain.Cashier;
+import domain.Store;
+import service.*;
 import enums.Choicess;
 import ui.*;
 
@@ -56,6 +56,5 @@ public class Main {
             }
         } while (choice != Choicess.valueOf("EXIT"));
     }
-
 
 }

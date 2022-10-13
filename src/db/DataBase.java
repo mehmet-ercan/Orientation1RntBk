@@ -16,9 +16,10 @@ public class DataBase {
     private List<Stock> stocks = new ArrayList<>();
     private List<Customer> customers = new ArrayList<>();
     private List<Sale> sales = new ArrayList<>();
-
-    private List<Rent> rents=new ArrayList<>();
+    private List<Rent> rents = new ArrayList<>();
     private List<BookSpecification> bookSpecifications = new ArrayList<>();
+
+    private List<CancaledSale> cancaledSales = new ArrayList<>();
 
     public List<Book> getBooksList() {
         return books;
@@ -42,6 +43,10 @@ public class DataBase {
 
     public List<BookSpecification> getBookSpecifications() {
         return bookSpecifications;
+    }
+
+    public List<CancaledSale> getCancaledSales() {
+        return cancaledSales;
     }
 
     public void initiliazeData() {

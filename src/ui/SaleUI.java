@@ -4,10 +4,10 @@ import domain.Book;
 import domain.Customer;
 import domain.Sale;
 import domain.Stock;
-import services.BookService;
-import services.CustomerService;
-import services.SaleService;
-import services.StockService;
+import service.BookService;
+import service.CustomerService;
+import service.SaleService;
+import service.StockService;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

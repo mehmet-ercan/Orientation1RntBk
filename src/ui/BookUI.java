@@ -2,8 +2,8 @@ package ui;
 
 import domain.Book;
 import domain.Stock;
-import services.BookService;
-import services.StockService;
+import service.BookService;
+import service.StockService;
 
 import java.time.LocalDate;
 import java.time.Month;

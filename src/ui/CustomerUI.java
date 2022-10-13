@@ -1,7 +1,7 @@
 package ui;
 
 import domain.Customer;
-import services.CustomerService;
+import service.CustomerService;
 
 import java.util.Scanner;
 
