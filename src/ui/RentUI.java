@@ -1,7 +1,7 @@
 package ui;
 
 import domain.*;
-import services.*;
+import service.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -9,7 +9,6 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class RentUI {
-
     BookService bookService = BookService.getInstance();
     CustomerService customerService = CustomerService.getInstance();
     StockService stockService = StockService.getInstance();

@@ -11,6 +11,7 @@ public class UI {
     StockUI stockUI;
     SaleUI saleUI;
     RentUI rentUI;
+    CancelSaleUI cancelSaleUI;
     Scanner readScreen = new Scanner(System.in);
 
     public UI() {
@@ -19,6 +20,7 @@ public class UI {
         this.customerUI = new CustomerUI();
         this.stockUI = new StockUI();
         this.saleUI = new SaleUI();
+        this.cancelSaleUI = new CancelSaleUI();
     }
 
     public BookUI getBookUI() {
@@ -41,22 +43,37 @@ public class UI {
         return rentUI;
     }
 
+    public CancelSaleUI getCancelSaleUI() {
+        return cancelSaleUI;
+    }
+
     public Choicess writeMenuItems() {
-        //clearScreen();
-        System.out.println("\n");
-        System.out.println("1.) Kitap Ekle ");
-        System.out.println("2.) Müşteri Ekle ");
-        System.out.println("3.) Kitap Satışı ");
-        System.out.println("4.) Kitap Kirala ");
-        System.out.println("5.) Satış İşlemi İptali ");
-        System.out.println("6.) Kitap Geri Al ");
-        System.out.println("7.) Kitap Stoğu Ekle");
-        System.out.println("8.) Kitapları Listele");
+        try {
+            System.out.println("\n");
+            System.out.println("1.) Kitap Ekle");
+            System.out.println("2.) Müşteri Ekle");
+            System.out.println("3.) Kitap Satışı");
+            System.out.println("4.) Kitap Kirala");
+            System.out.println("5.) Satış İşlemi İptali");
+            System.out.println("6.) Kitap Geri Al");
+            System.out.println("7.) Kitap Stoğu Ekle");
+            System.out.println("8.) Kitapları Listele");
 
-        System.out.println("0.) Çıkış\n");
-        System.out.print(" Seçiminiz --> ");
+            System.out.println("0.) Çıkış\n");
+            System.out.print(" Seçiminiz --> ");
 
-        return Choicess.values()[Integer.parseInt(readScreen.nextLine())];
+            int menuNumber = Integer.parseInt(readScreen.nextLine());
+
+            if (menuNumber >= Choicess.values().length - 1) {
+                System.out.println("Menü aralığı dışında bir seçim yaptınız. Lütfen tekrar deneyiniz.");
+                return Choicess.START;
+            } else {
+                return Choicess.values()[menuNumber];
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("İşlem sırasında bir hata meydana geldi. Lütfen tekrar deneyiniz. Hata kodu: " + e.getMessage());
+            return Choicess.START;
+        }
     }
 
     public static void delay(int seconds) {
@@ -67,6 +84,4 @@ public class UI {
             Thread.currentThread().interrupt();
         }
     }
-
-
 }

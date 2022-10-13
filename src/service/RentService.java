@@ -1,9 +1,8 @@
-package services;
+package service;
 
 import db.DataBase;
 import domain.Book;
 import domain.Rent;
-import domain.Sale;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -13,7 +12,7 @@ public class RentService {
 
     private static RentService rentService;
     private DataBase dataBase;
-    private float refundPercent = 0.75f;
+    final float refundPercent = 0.75f;
 
     private RentService() {
     }

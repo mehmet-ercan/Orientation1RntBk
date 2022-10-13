@@ -1,7 +1,7 @@
-package domain;
-
 import db.DataBase;
-import services.*;
+import domain.Cashier;
+import domain.Store;
+import service.*;
 import enums.Choicess;
 import ui.*;
 
@@ -28,6 +28,7 @@ public class Main {
         CustomerService.getInstance().setDataBase(dataBase);
         SaleService.getInstance().setDataBase(dataBase);
         RentService.getInstance().setDataBase(dataBase);
+        CancelSaleService.getInstance().setDataBase(dataBase);
 
         return new UI();
     }
@@ -50,9 +51,10 @@ public class Main {
                 userInterface.getRentUI().rentBook();
             } else if (choice == Choicess.LIST_BOOK) {
                 userInterface.getBookUI().showBooksInStock();
+            } else if (choice == Choicess.CANCEL_SALE) {
+                userInterface.getCancelSaleUI().cancelSale();
             }
         } while (choice != Choicess.valueOf("EXIT"));
     }
-
 
 }

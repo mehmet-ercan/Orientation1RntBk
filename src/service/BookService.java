@@ -1,4 +1,4 @@
-package services;
+package service;
 
 import db.DataBase;
 import domain.Book;
@@ -27,7 +27,6 @@ public class BookService {
     }
 
     public Book getBook(String isbn) {
-        Sale sale = new Sale();
         Book singleBook = null;
         singleBook = dataBase.getBooksList().stream().filter(b -> b.getIsbn().equals(isbn)).findFirst().orElse(null);
         return singleBook;
