@@ -2,14 +2,16 @@ package ui;
 
 import domain.Book;
 import domain.Stock;
-import services.BookServices;
-import services.StockServices;
+import services.BookService;
+import services.StockService;
 
 import java.util.Scanner;
 
 public class StockUI {
 
+    StockService stockService = StockService.getInstance();
     Scanner readScreen = new Scanner(System.in);
+
 
     public void increaseBookStock() {
         Book book = null;
@@ -20,17 +22,17 @@ public class StockUI {
         System.out.println("Kitabın ISBN Numrasını Giriniz:");
         isbn = readScreen.nextLine();
 
-        book = BookServices.getInstance().getBook(isbn);
+        book = BookService.getInstance().getBook(isbn);
 
         if (book == null) {
             System.out.println("Girmek istediğiniz `" + isbn + "` numarasına ait bir kitap bulunamamıştır.");
             System.out.println("Lütfen önce kitap ekleyiniz.");
         } else {
             System.out.println("Kaç adet stok girilecek:");
-            quantity = readScreen.nextInt();
-            StockServices.getInstance().increaseStock(isbn, quantity);
+            quantity = Integer.parseInt(readScreen.nextLine());
+            stockService.increaseStock(isbn, quantity);
 
-            stock = StockServices.getInstance().getStock(book.getIsbn());
+            stock = stockService.getStock(book.getIsbn());
 
             if (stock != null) {
                 System.out.println("Stoktaki Adedi: " + stock.getQauntity());

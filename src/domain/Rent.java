@@ -1,70 +1,28 @@
 package domain;
 
-import domain.Book;
+import java.time.LocalDateTime;
 
-import java.util.ArrayList;
-import java.util.List;
+public class Rent extends Sale {
+    private LocalDateTime refundDate;
+    public float refund;
 
-public class Rent {
-
-    private List<Book> bookItems = new ArrayList<>();
-    private int quantity;
-    private float total;
-    private int refundDate; // Date olacak, geri getirme tarihi olarak nasıl bilgi verildiyse ona göre geri ödeme yapılcak
-    public float refundPercent = 0.75f;
-
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public float getTotal() {
-        return total;
-    }
-
-    public void setTotal(float total) {
-        this.total = total;
-    }
-
-    public int getRefundDate() {
+    public LocalDateTime getRefundDate() {
         return refundDate;
     }
 
-    public void setRefundDate(int refundDate) {
+    public void setRefundDate(LocalDateTime refundDate) {
         this.refundDate = refundDate;
     }
 
-    public float getRefundPercent() {
-        return refundPercent;
+    public float getRefund() {
+        return refund;
     }
 
-    public void setRefundPercent(float refundPercent) {
-        this.refundPercent = refundPercent;
+    public void setRefund(float refund) {
+        this.refund = refund;
     }
 
-    public List<Book> getBookItems() {
-        return bookItems;
-    }
-
-    public void setBookItems(List<Book> bookItems) {
-        this.bookItems = bookItems;
-    }
-
-    public float calculateTotal() {
-        float subtotal = 0;
-
-        for (Book book : bookItems) {
-            subtotal = book.getBookSpecification().getPrice() * quantity;
-            this.total += subtotal;
-        }
-        return total;
-    }
-
-    /* Refund Sınıfında Yapılacak İşlemler */
+    /* Refund Sınıfında Yapılacak İşlemler
     /*public void calculatePercent() {
         if (refundDate <= 14) {
             refundPercent = 0.75f;

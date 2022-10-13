@@ -1,20 +1,22 @@
 package ui;
 
 import domain.Customer;
-import services.CustomerServices;
+import services.CustomerService;
 
 import java.util.Scanner;
 
 public class CustomerUI {
 
+    CustomerService customerService = CustomerService.getInstance();
     Scanner readScreen = new Scanner(System.in);
+
 
     public void addCustomer() {
         try {
             Customer newCustomer = new Customer();
             readScreen = new Scanner(System.in);
 
-            int customerId = CustomerServices.getInstance().getNewCustomerId();
+            int customerId = customerService.getNewCustomerId();
             newCustomer.setId(customerId);
 
             System.out.println("Müşterinin Adını Giriniz:");
@@ -26,9 +28,7 @@ public class CustomerUI {
             System.out.println("Müşterinin Telefon Numarasını Giriniz:");
             newCustomer.setPhoneNumber(readScreen.nextLine());
 
-            if (CustomerServices.getInstance().addCustomer(newCustomer)) {
-                System.out.println("Müşteri kayıt ediliyor.");
-                UI.delayWithComma(3);
+            if (customerService.addCustomer(newCustomer)) {
                 System.out.println("Müşteri kayıt edilmiştir.");
                 UI.delay(1);
             } else {
@@ -46,7 +46,7 @@ public class CustomerUI {
     }
 
     public void showCustomerInfo(int id) {
-        Customer customer = CustomerServices.getInstance().getCustomerInfo(id);
+        Customer customer = customerService.getCustomerInfo(id);
         if (customer != null) {
             System.out.println("Müşteri id'si: " + customer.getId());
             System.out.println("Müşteri Adı: " + customer.getName());

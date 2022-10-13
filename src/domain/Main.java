@@ -1,10 +1,7 @@
 package domain;
 
 import db.DataBase;
-import services.BookServices;
-import services.CustomerServices;
-import services.SaleServices;
-import services.StockServices;
+import services.*;
 import enums.Choicess;
 import ui.*;
 
@@ -24,19 +21,13 @@ public class Main {
 
     public static UI initializeUI() {
 
-        DataBase dataBase=new DataBase();
+        DataBase dataBase = new DataBase();
 
-        BookServices bookServices = BookServices.getInstance();
-        bookServices.setDataBase(dataBase);
-
-        StockServices stockServices = StockServices.getInstance();
-        stockServices.setDataBase(dataBase);
-
-        CustomerServices customerServices = CustomerServices.getInstance();
-        customerServices.setDataBase(dataBase);
-
-        SaleServices saleServices = SaleServices.getInstance();
-        saleServices.setDataBase(dataBase);
+        BookService.getInstance().setDataBase(dataBase);
+        StockService.getInstance().setDataBase(dataBase);
+        CustomerService.getInstance().setDataBase(dataBase);
+        SaleService.getInstance().setDataBase(dataBase);
+        RentService.getInstance().setDataBase(dataBase);
 
         return new UI();
     }
@@ -55,6 +46,8 @@ public class Main {
                 userInterface.getSaleUI().sellBook();
             } else if (choice == Choicess.ADD_BOOK_STOCK) {
                 userInterface.getStockUI().increaseBookStock();
+            } else if (choice == Choicess.RENT_BOOK) {
+                userInterface.getRentUI().rentBook();
             } else if (choice == Choicess.LIST_BOOK) {
                 userInterface.getBookUI().showBooksInStock();
             }

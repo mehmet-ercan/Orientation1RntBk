@@ -2,8 +2,8 @@ package ui;
 
 import domain.Book;
 import domain.Stock;
-import services.BookServices;
-import services.StockServices;
+import services.BookService;
+import services.StockService;
 
 import java.time.LocalDate;
 import java.time.Month;
@@ -11,7 +11,8 @@ import java.util.Scanner;
 
 public class BookUI {
     Scanner readScreen = new Scanner(System.in);
-
+    BookService bookService = BookService.getInstance();
+    StockService stockService = StockService.getInstance();
 
     public void addBook() {
         try {
@@ -31,20 +32,18 @@ public class BookUI {
             newBook.setPublishYear(readScreen.nextLine());
 
             System.out.println("Kitabın Sayfa Sayısını Giriniz:");
-            newBook.setPages(readScreen.nextInt());
+            newBook.setPages(Integer.parseInt(readScreen.nextLine()));
 
             System.out.println("Kitabın Ücretini Giriniz:");
-            newBook.getBookSpecification().setPrice(readScreen.nextFloat());
+            newBook.getBookSpecification().setPrice(Float.parseFloat(readScreen.nextLine()));
 
             newBook.getBookSpecification().setIsbn(newBook.getIsbn());
             newBook.getBookSpecification().setStartDate(LocalDate.now());
             newBook.getBookSpecification().setEndDate(LocalDate.of(9999, Month.DECEMBER, 31));
 
-            if (BookServices.getInstance().addBook(newBook)) {
-                if (StockServices.getInstance().addStock(newBook.getIsbn())) {
-                    System.out.println("Kitap stok bilgisiyle beraber mağazaya ekleniyor: ");
-                    UI.delayWithComma(3);
-                    System.out.println("Kitap mağazaya eklenmiştir.");
+            if (bookService.addBook(newBook)) {
+                if (stockService.addStock(newBook.getIsbn())) {
+                    System.out.println("Kitap stok bilgisiyle beraber mağazaya eklenmiştir: ");
                     UI.delay(1);
                 } else {
                     throw new Exception("Stok bilgisi eklenemedi.");
@@ -64,7 +63,7 @@ public class BookUI {
     public void showBooksInStock() {
         int bookNumber = 1;
 
-        for (Book book : BookServices.getInstance().getDataBase().getBooksList()) {
+        for (Book book : bookService.getDataBase().getBooksList()) {
             System.out.print(bookNumber + ". ");
             printBookInformation(book);
             bookNumber++;
@@ -72,7 +71,7 @@ public class BookUI {
     }
 
     public void printBookInformation(Book book) {
-        Stock stock = StockServices.getInstance().getStock(book.getIsbn());
+        Stock stock = stockService.getStock(book.getIsbn());
 
         System.out.println("ISBN Numarası: " + book.getIsbn());
         System.out.println("Adı: " + book.getName());

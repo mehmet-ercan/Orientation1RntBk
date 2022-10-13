@@ -1,6 +1,7 @@
 package ui;
 
 import enums.Choicess;
+
 import java.util.Scanner;
 
 public class UI {
@@ -9,9 +10,11 @@ public class UI {
     CustomerUI customerUI;
     StockUI stockUI;
     SaleUI saleUI;
+    RentUI rentUI;
     Scanner readScreen = new Scanner(System.in);
 
     public UI() {
+        this.rentUI = new RentUI();
         this.bookUI = new BookUI();
         this.customerUI = new CustomerUI();
         this.stockUI = new StockUI();
@@ -34,6 +37,10 @@ public class UI {
         return saleUI;
     }
 
+    public RentUI getRentUI() {
+        return rentUI;
+    }
+
     public Choicess writeMenuItems() {
         //clearScreen();
         System.out.println("\n");
@@ -49,23 +56,12 @@ public class UI {
         System.out.println("0.) Çıkış\n");
         System.out.print(" Seçiminiz --> ");
 
-        return Choicess.values()[readScreen.nextInt()];
-    }
-
-    public static void delayWithComma(int commaQuantity) {
-        try {
-            for (int i = 0; i < commaQuantity; i++) {
-                Thread.sleep(1000);
-                System.out.println(".");
-            }
-        } catch (InterruptedException interruptedException) {
-            Thread.currentThread().interrupt();
-        }
+        return Choicess.values()[Integer.parseInt(readScreen.nextLine())];
     }
 
     public static void delay(int seconds) {
         try {
-            seconds *= 1000;
+            seconds *= 1250;
             Thread.sleep(seconds);
         } catch (InterruptedException interruptedException) {
             Thread.currentThread().interrupt();
