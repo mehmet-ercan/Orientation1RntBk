@@ -53,6 +53,8 @@ public class Main {
                 userInterface.getBookUI().showBooksInStock();
             } else if (choice == Choicess.CANCEL_SALE) {
                 userInterface.getCancelSaleUI().cancelSale();
+            } else if (choice == Choicess.REFUND_BOOK) {
+                userInterface.getBookUI().showBooksInStock();
             }
         } while (choice != Choicess.valueOf("EXIT"));
     }

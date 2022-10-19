@@ -1,10 +1,11 @@
 package domain;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Rent extends Sale {
     private LocalDateTime refundDate;
-    public float refund;
+    private float refund;
 
     public LocalDateTime getRefundDate() {
         return refundDate;
@@ -17,9 +18,14 @@ public class Rent extends Sale {
     public float getRefund() {
         return refund;
     }
-
     public void setRefund(float refund) {
         this.refund = refund;
+    }
+
+    @Override
+    public String generateOperationNumber(int customerId) { // R18102214550901 => Rent 18.10.2022 14:55.09 01 idli Müşteri
+        String receiptNumber = "R" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("ddMMyyHHmmss")) + customerId;
+        return receiptNumber;
     }
 
     /* Refund Sınıfında Yapılacak İşlemler

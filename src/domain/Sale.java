@@ -1,6 +1,7 @@
 package domain;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class Sale {
@@ -44,5 +45,10 @@ public class Sale {
 
     public void setCustomerId(int customerId) {
         this.customerId = customerId;
+    }
+
+    public String generateOperationNumber(int customerId) { // S18102214550901 => Sale 18.10.2022 14:55.09 01 idli Müşteri
+        String receiptNumber = "S" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("ddMMyyHHmmss")) + customerId;
+        return receiptNumber;
     }
 }

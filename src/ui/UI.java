@@ -55,7 +55,7 @@ public class UI {
             System.out.println("3.) Kitap Satışı");
             System.out.println("4.) Kitap Kirala");
             System.out.println("5.) Satış İşlemi İptali");
-            System.out.println("6.) Kitap Geri Al");
+            System.out.println("6.) Kiralanmış Kitabı Al");
             System.out.println("7.) Kitap Stoğu Ekle");
             System.out.println("8.) Kitapları Listele");
 
