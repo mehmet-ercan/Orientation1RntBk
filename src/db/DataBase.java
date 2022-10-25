@@ -19,7 +19,7 @@ public class DataBase {
     private List<Rent> rents = new ArrayList<>();
     private List<BookSpecification> bookSpecifications = new ArrayList<>();
 
-    private List<CancaledSale> cancaledSales = new ArrayList<>();
+    private List<CancelSale> cancelSales = new ArrayList<>();
 
     public List<Book> getBooksList() {
         return books;
@@ -45,8 +45,8 @@ public class DataBase {
         return bookSpecifications;
     }
 
-    public List<CancaledSale> getCancaledSales() {
-        return cancaledSales;
+    public List<CancelSale> getCancaledSales() {
+        return cancelSales;
     }
 
     public void initiliazeData() {

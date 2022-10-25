@@ -64,7 +64,6 @@ public class Book {
 
     public BookSpecification getBookSpecification() {
         return bookSpecification;
-
     }
 
     public void setBookSpecification(BookSpecification bookSpecification) {

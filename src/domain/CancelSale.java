@@ -2,7 +2,7 @@ package domain;
 
 import java.time.LocalDateTime;
 
-public class CancaledSale {
+public class CancelSale {
     Sale sale;
     float refund;
     LocalDateTime canceledDateTime;

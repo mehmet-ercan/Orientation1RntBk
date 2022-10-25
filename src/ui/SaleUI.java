@@ -23,6 +23,9 @@ public class SaleUI {
 
     Scanner readScreen = new Scanner(System.in);
 
+    /**
+     *
+     */
     public void sellBook() {
         try {
             Sale sale = new Sale();

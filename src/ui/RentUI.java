@@ -19,6 +19,7 @@ public class RentUI {
     public void rentBook() {
         try {
             Rent rent = new Rent();
+
             int customerId;
 
             System.out.println("Kitap kiralayacak olan müşterinin numarasını giriniz:");

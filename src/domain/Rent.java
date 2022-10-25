@@ -18,6 +18,7 @@ public class Rent extends Sale {
     public float getRefund() {
         return refund;
     }
+
     public void setRefund(float refund) {
         this.refund = refund;
     }
@@ -27,6 +28,7 @@ public class Rent extends Sale {
         String receiptNumber = "R" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("ddMMyyHHmmss")) + customerId;
         return receiptNumber;
     }
+
 
     /* Refund Sınıfında Yapılacak İşlemler
     /*public void calculatePercent() {

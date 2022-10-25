@@ -1,7 +1,7 @@
 package service;
 
 import db.DataBase;
-import domain.CancaledSale;
+import domain.CancelSale;
 import java.time.Duration;
 
 
@@ -23,19 +23,19 @@ public class CancelSaleService {
         this.dataBase = dataBase;
     }
 
-    public void cancelSale(CancaledSale cancaledSale) {
-        dataBase.getCancaledSales().add(cancaledSale);
-        float refund = calculateRefund(cancaledSale);
-        cancaledSale.setRefund(refund);
+    public void cancelSale(CancelSale cancelSale) {
+        dataBase.getCancaledSales().add(cancelSale);
+        float refund = calculateRefund(cancelSale);
+        cancelSale.setRefund(refund);
     }
 
-    public float calculateRefund(CancaledSale cancaledSale) {
-        long diff = Duration.between(cancaledSale.getSale().getOperationDateTime(), cancaledSale.getCanceledDateTime()).toHours();
+    public float calculateRefund(CancelSale cancelSale) {
+        long diff = Duration.between(cancelSale.getSale().getOperationDateTime(), cancelSale.getCanceledDateTime()).toHours();
         float refund;
         if (diff > 24) {
-            refund = cancaledSale.getSale().getTotal() * 0.75f;
+            refund = cancelSale.getSale().getTotal() * 0.75f;
         } else {
-            refund = cancaledSale.getSale().getTotal();
+            refund = cancelSale.getSale().getTotal();
         }
         return refund;
     }
