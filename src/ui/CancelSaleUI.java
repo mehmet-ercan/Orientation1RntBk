@@ -19,26 +19,24 @@ public class CancelSaleUI {
     StockService stockService = StockService.getInstance();
 
     public void cancelSale() {
-
         String saleNumber;
-
         System.out.println("İptal edilecek olan satış numarasını giriniz:");
         saleNumber = readScreen.nextLine();
 
         Sale sale = saleService.getSale(saleNumber);
-        CancelSale cancelSale = new CancelSale();
+        CancelSale cancaledSale = new CancelSale();
 
         if (sale != null) {
-            cancelSale.setSale(sale);
-            cancelSale.setCanceledDateTime(LocalDateTime.parse("2022-10-13T19:11:52.965611"));
-            //cancelSale.setCanceledDateTime(LocalDateTime.now());
-            System.out.println("Bu satış için geri ödeme miktarı: " + cancelSaleService.calculateRefund(cancelSale));
+            cancaledSale.setSale(sale);
+            cancaledSale.setCanceledDateTime(LocalDateTime.parse("2022-10-13T19:11:52.965611"));
+            //cancaledSale.setCanceledDateTime(LocalDateTime.now());
+            System.out.println("Bu satış için geri ödeme miktarı: " + cancelSaleService.calculateRefund(cancaledSale));
             System.out.println("Kabul ediyorsanız E yazınız:");
 
             String answer = readScreen.nextLine();
             if (answer.equals("E") || answer.equals("e")) {
 
-                cancelSaleService.cancelSale(cancelSale);
+                cancelSaleService.cancelSale(cancaledSale);
 
                 for (Map.Entry<Book, Integer> map : sale.getBookAndQuantityMap().entrySet()) {
                     stockService.increaseStock(map.getKey().getIsbn(), map.getValue());
@@ -46,7 +44,7 @@ public class CancelSaleUI {
 
                 saleService.removeSale(sale);
 
-                System.out.println(cancelSale.getSale().getOperationNumber() + " nolu sipariş iptal edilmiştir.");
+                System.out.println(cancaledSale.getSale().getOperationNumber() + " nolu sipariş iptal edilmiştir.");
             }
 
 
@@ -56,6 +54,6 @@ public class CancelSaleUI {
 
         System.out.println("Ana menüye yönlendiriliyorsunuz.");
         UI.delay(1);
-    }
 
+    }
 }
